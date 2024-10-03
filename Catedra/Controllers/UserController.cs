@@ -1,6 +1,7 @@
 using Catedra.Models;
 using Catedra.DTOs;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Catedra.Controllers
 {
@@ -16,6 +17,7 @@ namespace Catedra.Controllers
         }
 
         [HttpPost]
+        [Route("/user")]
         public async Task<IActionResult> CrearUnUsuario(UserDto dto)
         {
             if(dto.RUT==null|dto.Nombre==null|dto.Correo==null|dto.Genero==null|dto.FechaNacimiento==null)
@@ -40,9 +42,23 @@ namespace Catedra.Controllers
         }
 
         [HttpGet]
+        [Route("/user")]
         public async Task<IActionResult> ObtenerTodosLosUsuarios()
         {
+            return Ok(await _context.Users.ToListAsync());
+        }
 
+        [HttpPut]
+        [Route("/user/{RUT}")]
+        public async Task<IActionResult> EditarUnUsuario()
+        {
+
+            return Ok();
+        }
+        [HttpDelete]
+        [Route("/user/{RUT}")]
+        public async Task<IActionResult> EliminarUnUsuario()
+        {
             return Ok();
         }
     }
